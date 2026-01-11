@@ -57,19 +57,27 @@ runs:
     - name: Checkout
       uses: actions/checkout@v6
 
+    - name: Checkout github-tiles
+      uses: actions/checkout@v6
+      with:
+        repository: mbwilding/github-tiles
+        path: /tmp/github-tiles
+
     - name: Cache
       id: cache
       uses: actions/cache@v5
       with:
-        path: target/release/github-tiles
-        key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.*') }}-${{ hashFiles('**/*.rs') }}
+        path: /tmp/github-tiles/target/release/github-tiles
+        key: ${{ runner.os }}-cargo-${{ hashFiles('/tmp/github-tiles/Cargo.*') }}-${{ hashFiles('/tmp/github-tiles/**/*.rs') }}
         restore-keys: |
           ${{ runner.os }}-github-tiles-
 
     - name: Build
       if: steps.cache.outputs.cache-hit != 'true'
       shell: bash
-      run: cargo build --release --locked
+      run: |
+        cd /tmp/github-tiles
+        cargo build --release --locked
 
     - name: Generate SVGs
       shell: bash
@@ -77,7 +85,7 @@ runs:
         GITHUB_TOKEN: ${{ inputs.token }}
         RUST_LOG: ${{ inputs.log-level }}
       run: |
-        ./target/release/github-tiles \
+        ./tmp/github-tiles/target/release/github-tiles \
           --output "${{ inputs.output }}" \
           --tiles "${{ inputs.tiles }}" \
           --languages-limit "${{ inputs.languages-limit }}" \
