@@ -5,9 +5,9 @@ inputs:
   token:
     description: |
       GitHub token
-      Generate a token via the link below
+      Generate a token via the link below and set 'Expiration' to 'No expiration'
       https://github.com/settings/tokens/new?scopes=repo,read:user&description=GitHub%20Tiles
-      Save it into a GitHub secret
+      Save it into a GitHub actions secret called TOKEN
       Only pass via a GitHub action secret so it is masked
     required: true
   output:

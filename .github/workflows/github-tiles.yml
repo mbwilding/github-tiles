@@ -1,0 +1,22 @@
+name: GitHub Tiles
+run-name: GitHub Tiles
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 11 * * *"
+
+jobs:
+  github-tiles:
+    runs-on: ubuntu-latest
+    steps:
+      - name: GitHub Tiles
+        uses: mbwilding/github-tiles@main
+        with:
+          # Generate a token via the link below and set 'Expiration' to 'No expiration'
+          # https://github.com/settings/tokens/new?scopes=repo,read:user&description=GitHub%20Tiles
+          # Save it into a GitHub actions secret called TOKEN
+          # Only pass via a GitHub action secret so it is masked
+          token: ${{ secrets.TOKEN }}
+          # Other parameters are available, documented at the link below
+          # https://github.com/mbwilding/github-tiles/blob/main/action.yml#L4
