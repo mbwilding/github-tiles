@@ -85,7 +85,7 @@ runs:
         GITHUB_TOKEN: ${{ inputs.token }}
         RUST_LOG: ${{ inputs.log-level }}
       run: |
-        .github-tiles/target/release/github-tiles \
+        ./github-tiles/target/release/github-tiles \
           --output "${{ inputs.output }}" \
           --tiles "${{ inputs.tiles }}" \
           --languages-limit "${{ inputs.languages-limit }}" \
