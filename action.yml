@@ -85,6 +85,7 @@ runs:
         GITHUB_TOKEN: ${{ inputs.token }}
         RUST_LOG: ${{ inputs.log-level }}
       run: |
+        set -e
         ./github-tiles/target/release/github-tiles \
           --output "${{ inputs.output }}" \
           --tiles "${{ inputs.tiles }}" \
