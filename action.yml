@@ -54,10 +54,10 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Checkout
+    - name: Checkout Self
       uses: actions/checkout@v6
 
-    - name: Checkout github-tiles
+    - name: Checkout GitHub Tiles
       uses: actions/checkout@v6
       with:
         repository: mbwilding/github-tiles
