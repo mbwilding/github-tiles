@@ -54,30 +54,24 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Checkout Self
+    - name: Checkout
       uses: actions/checkout@v6
 
-    - name: Checkout GitHub Tiles
-      uses: actions/checkout@v6
-      with:
-        repository: mbwilding/github-tiles
-        path: github-tiles
-
-    - name: Cache
-      id: cache
-      uses: actions/cache@v5
-      with:
-        path: github-tiles/target/release/github-tiles
-        key: ${{ runner.os }}-cargo-${{ hashFiles('github-tiles/Cargo.lock') }}-${{ hashFiles('github-tiles/**/*.rs') }}
-        restore-keys: |
-          ${{ runner.os }}-github-tiles-
-
-    - name: Build
-      if: steps.cache.outputs.cache-hit != 'true'
+    - name: Download binary
       shell: bash
       run: |
-        cd github-tiles
-        cargo build --release --locked
+        VERSION="${{ github.action_ref }}"
+        if [[ -z "$VERSION" ]]; then
+          VERSION="main"
+        fi
+
+        curl -sSL \
+          -H "Accept: application/octet-stream" \
+          -H "Authorization: Bearer ${{ github.token }}" \
+          -o github-tiles \
+          "https://github.com/mbwilding/github-tiles/releases/download/${VERSION}/github-tiles"
+
+        chmod +x github-tiles
 
     - name: Generate SVGs
       shell: bash
@@ -86,7 +80,7 @@ runs:
         RUST_LOG: ${{ inputs.log-level }}
       run: |
         set -e
-        ./github-tiles/target/release/github-tiles \
+        ./github-tiles \
           --output "${{ inputs.output }}" \
           --tiles "${{ inputs.tiles }}" \
           --languages-limit "${{ inputs.languages-limit }}" \
@@ -96,6 +90,11 @@ runs:
           ${{ inputs.forks == 'true' && '--forks' || '' }} \
           ${{ inputs.opaque == 'true' && '--opaque' || '' }} \
           ${{ inputs.optimize == 'true' && '--optimize' || '' }}
+
+    - name: Delete binary
+      if: always()
+      shell: bash
+      run: rm -f github-tiles
 
     - name: Commit
       shell: bash
