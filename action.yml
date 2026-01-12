@@ -1,6 +1,10 @@
 name: GitHub Tiles
 description: Generates SVGs for use with your GitHub profile
 
+branding:
+  icon: list
+  color: blue
+
 inputs:
   token:
     description: |
