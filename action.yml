@@ -59,17 +59,19 @@ runs:
 
     - name: Download binary
       shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
+        set -e
         VERSION="${{ github.action_ref }}"
         if [[ -z "$VERSION" ]]; then
-          VERSION="main"
+          VERSION="v1"
         fi
 
-        curl -sSL \
-          -H "Accept: application/octet-stream" \
-          -H "Authorization: Bearer ${{ github.token }}" \
-          -o github-tiles \
-          "https://github.com/mbwilding/github-tiles/releases/download/${VERSION}/github-tiles"
+        gh release download "$VERSION" \
+          --repo mbwilding/github-tiles \
+          --pattern "github-tiles" \
+          --output github-tiles
 
         chmod +x github-tiles
 
