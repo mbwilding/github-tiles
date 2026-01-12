@@ -7,25 +7,25 @@ Generate SVG tiles for your GitHub profile README.
 ### Statistics
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mbwilding/github-tiles/refs/heads/main/assets/statistics_dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mbwilding/github-tiles/refs/heads/main/assets/statistics_light.svg" />
-  <img src="https://raw.githubusercontent.com/mbwilding/github-tiles/refs/heads/main/assets/statistics_dark.svg" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mbwilding/mbwilding/refs/heads/main/assets/statistics_dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mbwilding/mbwilding/refs/heads/main/assets/statistics_light.svg" />
+  <img src="https://raw.githubusercontent.com/mbwilding/mbwilding/refs/heads/main/assets/statistics_dark.svg" />
 </picture>
 
 ### Languages
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mbwilding/github-tiles/refs/heads/main/assets/languages_dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mbwilding/github-tiles/refs/heads/main/assets/languages_light.svg" />
-  <img src="https://raw.githubusercontent.com/mbwilding/github-tiles/refs/heads/main/assets/languages_dark.svg" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mbwilding/mbwilding/refs/heads/main/assets/languages_dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mbwilding/mbwilding/refs/heads/main/assets/languages_light.svg" />
+  <img src="https://raw.githubusercontent.com/mbwilding/mbwilding/refs/heads/main/assets/languages_dark.svg" />
 </picture>
 
 ### Contributions
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mbwilding/github-tiles/refs/heads/main/assets/contributions_dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mbwilding/github-tiles/refs/heads/main/assets/contributions_light.svg" />
-  <img src="https://raw.githubusercontent.com/mbwilding/github-tiles/refs/heads/main/assets/contributions_dark.svg" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/mbwilding/mbwilding/refs/heads/main/assets/contributions_dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/mbwilding/mbwilding/refs/heads/main/assets/contributions_light.svg" />
+  <img src="https://raw.githubusercontent.com/mbwilding/mbwilding/refs/heads/main/assets/contributions_dark.svg" />
 </picture>
 
 ## Usage
