@@ -2,6 +2,32 @@
 
 Generate SVG tiles for your GitHub profile README.
 
+## Preview
+
+### Statistics
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/statistics_dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./assets/statistics_light.svg" />
+  <img src="./assets/statistics_dark.svg" />
+</picture>
+
+### Languages
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/languages_dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./assets/languages_light.svg" />
+  <img src="./assets/languages_dark.svg" />
+</picture>
+
+### Contributions
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/contributions_dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="./assets/contributions_light.svg" />
+  <img src="./assets/contributions_dark.svg" />
+</picture>
+
 ## Usage
 
 ```yaml
@@ -47,29 +73,6 @@ jobs:
 | `optimize` | Optimize SVG output | No | `true` |
 | `log-level` | Log level (error, warn, info, debug, trace) | No | `info` |
 
-## Tiles
-
-### Statistics
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/statistics_dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="./assets/statistics_light.svg" />
-</picture>
-
-### Languages
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/languages_dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="./assets/languages_light.svg" />
-</picture>
-
-### Contributions
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/contributions_dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="./assets/contributions_light.svg" />
-</picture>
-
 ## Displaying in your README
 
 Use the `<picture>` element to support light and dark themes:
@@ -80,6 +83,7 @@ Use the `<picture>` element to support light and dark themes:
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/statistics_dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="./assets/statistics_light.svg" />
+  <img src="./assets/statistics_dark.svg" />
 </picture>
 
 ### Languages
@@ -87,6 +91,7 @@ Use the `<picture>` element to support light and dark themes:
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/languages_dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="./assets/languages_light.svg" />
+  <img src="./assets/languages_dark.svg" />
 </picture>
 
 ### Contributions
@@ -94,6 +99,7 @@ Use the `<picture>` element to support light and dark themes:
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/contributions_dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="./assets/contributions_light.svg" />
+  <img src="./assets/contributions_dark.svg" />
 </picture>
 ```
 
