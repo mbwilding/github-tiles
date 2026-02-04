@@ -163,7 +163,7 @@ impl Tile for Contributions {
                 </clipPath>
                 <image href="{}" x="0" y="0" width="{}" height="{}" clip-path="url(#avatar-clip-{})"/>
                 <text x="{}" y="{}" fill="{}" font-size="{}">
-                    <tspan fill="{}">{}</tspan>/<tspan font-weight="600">{}</tspan>
+                    <tspan fill="{}">{}/</tspan><tspan font-weight="600">{}</tspan>
                 </text>
                 <g transform="translate({}, 0)" fill="{}">
                     <g transform="translate(0, {})">{}</g>

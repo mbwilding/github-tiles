@@ -67,9 +67,9 @@ runs:
         GH_TOKEN: ${{ github.token }}
       run: |
         set -e
+
         VERSION="${{ github.action_ref }}"
 
-        # If version is a major tag (v1, v2), find the latest matching release
         if [[ "$VERSION" =~ ^v[0-9]+$ ]]; then
           VERSION=$(gh release list --repo mbwilding/github-tiles --limit 100 \
             | grep -E "^${VERSION}\." \
@@ -77,7 +77,6 @@ runs:
             | cut -f3)
         fi
 
-        # Fallback to latest release
         if [[ -z "$VERSION" ]]; then
           VERSION=$(gh release view --repo mbwilding/github-tiles --json tagName -q '.tagName')
         fi
