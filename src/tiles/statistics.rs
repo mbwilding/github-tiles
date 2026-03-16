@@ -1,7 +1,7 @@
 use super::{BORDER_RADIUS, CHAR_WIDTH, FONT_SIZE, RenderConfig, SVG_STYLES, Tile};
 use crate::github::User;
+use crate::helpers::format_number;
 use crate::icons;
-use crate::svg::format_number;
 use log::debug;
 
 // Layout constants

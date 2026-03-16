@@ -3,8 +3,8 @@ use super::{
     empty_svg,
 };
 use crate::github::User;
+use crate::helpers::format_number;
 use crate::icons;
-use crate::svg::format_number;
 use anyhow::Result;
 use base64::{Engine as _, engine::general_purpose::STANDARD as BASE64};
 use futures::future::join_all;

@@ -34,7 +34,12 @@ pub struct Languages {
 
 impl Languages {
     /// Extract language statistics from GitHub user data
-    pub fn from_user(user: &User, limit: u8, include_forks: bool) -> Self {
+    pub fn from_user(
+        user: &User,
+        limit: u8,
+        include_forks: bool,
+        excluded_languages: &Option<Vec<&str>>,
+    ) -> Self {
         debug!(
             "Extracting language statistics (include_forks: {})",
             include_forks
@@ -77,6 +82,15 @@ impl Languages {
         for lang in languages.iter() {
             let pct = (lang.bytes as f64 / total_bytes as f64) * 100.0;
             debug!("{}: {} bytes ({:.1}%)", lang.name, lang.bytes, pct);
+        }
+
+        if let Some(excluded_languages) = excluded_languages {
+            debug!("Removing languages: {:#?}", excluded_languages);
+            languages.retain(|lang| {
+                !excluded_languages
+                    .iter()
+                    .any(|ex| ex.eq_ignore_ascii_case(lang.name.as_ref()))
+            });
         }
 
         languages.truncate(limit as usize);

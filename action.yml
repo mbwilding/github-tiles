@@ -7,53 +7,35 @@ branding:
 
 inputs:
   token:
+    required: true
     description: |
       GitHub token
       Generate a token via the link below and set 'Expiration' to 'No expiration'
       https://github.com/settings/tokens/new?scopes=repo,read:user&description=GitHub%20Tiles
       Save it into a GitHub actions secret called TOKEN
       Only pass via a GitHub action secret so it is masked
-    required: true
   output:
     description: Output directory
-    required: false
-    default: assets
   tiles:
     description: "Tiles to generate (comma-separated: statistics,languages,contributions)"
-    required: false
-    default: statistics,languages,contributions
   private:
     description: Include private repositories
-    required: false
-    default: "false"
   forks:
     description: Include forked repositories
-    required: false
-    default: "false"
   languages-limit:
     description: Languages to display
-    required: false
-    default: "5"
+  languages-exclude:
+    description: Languages to ignore (comma-separated and case-insensitive)
   contributions-limit:
     description: Contributions to display
-    required: false
-    default: "10"
   contributions-min-stars:
     description: Contributions minimum stars
-    required: false
-    default: "0"
   opaque:
     description: Render opaque background
-    required: false
-    default: "false"
   optimize:
     description: SVG optimization
-    required: false
-    default: "true"
   log-level:
     description: Log level (error, warn, info, debug, trace)
-    required: true
-    default: info
 
 runs:
   using: composite
@@ -96,11 +78,12 @@ runs:
       run: |
         set -e
         ./github-tiles \
-          --output "${{ inputs.output }}" \
-          --tiles "${{ inputs.tiles }}" \
-          --languages-limit "${{ inputs.languages-limit }}" \
-          --contributions-limit "${{ inputs.contributions-limit }}" \
-          --contributions-min-stars "${{ inputs.contributions-min-stars }}" \
+          ${{ inputs.output != '' && '--output "${{ inputs.output }}"' || '' }} \
+          ${{ inputs.tiles != '' && '--tiles "${{ inputs.tiles }}"' || '' }} \
+          ${{ inputs.languages-limit != '' && '--languages-limit "${{ inputs.languages-limit }}"' || '' }} \
+          ${{ inputs.languages-exclude != '' && '--languages-exclude "${{ inputs.languages-exclude }}"' || '' }} \
+          ${{ inputs.contributions-limit != '' && '--contributions-limit "${{ inputs.contributions-limit }}"' || '' }} \
+          ${{ inputs.contributions-min-stars != '' && '--contributions-min-stars "${{ inputs.contributions-min-stars }}"' || '' }} \
           ${{ inputs.private == 'true' && '--private' || '' }} \
           ${{ inputs.forks == 'true' && '--forks' || '' }} \
           ${{ inputs.opaque == 'true' && '--opaque' || '' }} \

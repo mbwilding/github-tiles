@@ -1,63 +1,23 @@
+mod cli;
 mod github;
+mod helpers;
 mod icons;
 mod svg;
 mod theme;
 mod tiles;
 
+use crate::{cli::Args, helpers::opt_comma_str_to_vec_slice};
 use anyhow::{Context, Result};
-use clap::Parser;
 use log::{debug, info};
 use std::path::Path;
 use tiles::{Contributions, Languages, RenderConfig, Statistics, Tile};
 use tokio::fs;
 
-#[derive(Parser)]
-#[command(about = "Generate GitHub stats SVGs")]
-struct Args {
-    /// GitHub token (https://github.com/settings/tokens/new?scopes=repo,read:user&description=GitHub%20Tiles)
-    #[arg(long, env = "GITHUB_TOKEN")]
-    token: String,
-
-    /// Output directory
-    #[arg(long, default_value = "assets")]
-    output: String,
-
-    /// Tiles to generate (comma-separated: statistics,languages,contributions)
-    #[arg(long, default_value = "statistics,languages,contributions")]
-    tiles: String,
-
-    /// Include private repositories
-    #[arg(long, default_value = "false")]
-    private: bool,
-
-    /// Include forked repositories
-    #[arg(long, default_value = "false")]
-    forks: bool,
-
-    /// Languages to display
-    #[arg(long, default_value = "5")]
-    languages_limit: u8,
-
-    /// Contributions to display
-    #[arg(long, default_value = "10")]
-    contributions_limit: u8,
-
-    /// Contributions minimum stars
-    #[arg(long, default_value = "0")]
-    contributions_min_stars: u32,
-
-    /// Render opaque background
-    #[arg(long, default_value = "false")]
-    opaque: bool,
-
-    /// SVG optimization
-    #[arg(long, default_value = "true")]
-    optimize: bool,
-}
+use crate::helpers::comma_str_to_vec_slice;
 
 #[tokio::main]
 async fn main() -> Result<()> {
-    let rust_log = std::env::var("RUST_LOG").unwrap_or_default();
+    let rust_log = std::env::var("RUST_LOG").unwrap_or_else(|_| "info".to_string());
     let filter = match rust_log.as_str() {
         "" => "warn,github_tiles=info".to_string(),
         "trace" => rust_log.to_string(),
@@ -77,7 +37,7 @@ async fn main() -> Result<()> {
         .format_target(false)
         .init();
 
-    let args = Args::parse();
+    let args = Args::get();
     let client = reqwest::Client::new();
 
     info!("Fetching GitHub data...");
@@ -90,21 +50,21 @@ async fn main() -> Result<()> {
     let username = &user.login;
     debug!("Authenticated as: {}", username);
 
-    // Parse tile selection
-    let tile_selection: Vec<&str> = args.tiles.split(',').map(|s| s.trim()).collect();
+    let tile_selection = comma_str_to_vec_slice(&args.tiles);
 
-    // Extract tile data from user based on selection
     let statistics = if tile_selection.contains(&"statistics") {
         Some(Statistics::from_user(&user, args.forks))
     } else {
         None
     };
 
+    let excluded_languages = opt_comma_str_to_vec_slice(&args.languages_exclude);
     let languages = if tile_selection.contains(&"languages") {
         Some(Languages::from_user(
             &user,
             args.languages_limit,
             args.forks,
+            &excluded_languages,
         ))
     } else {
         None
@@ -121,18 +81,15 @@ async fn main() -> Result<()> {
         None
     };
 
-    // Fetch avatars for contributions
     if let Some(ref mut contrib) = contributions {
         info!("Fetching avatars...");
         contrib.fetch_avatars(&client).await?;
     }
 
-    // Create output directory
     let output_path = Path::new(&args.output);
     debug!("Output directory: {}", output_path.display());
     fs::create_dir_all(output_path).await?;
 
-    // Collect selected tiles
     let mut tiles: Vec<&dyn Tile> = Vec::new();
     if let Some(ref s) = statistics {
         tiles.push(s);
@@ -144,7 +101,6 @@ async fn main() -> Result<()> {
         tiles.push(c);
     }
 
-    // Generate SVGs for all themes
     for theme in theme::ALL {
         let config = RenderConfig::new(theme, args.opaque);
 

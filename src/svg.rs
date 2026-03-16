@@ -19,14 +19,3 @@ pub fn optimize(svg: &str) -> String {
     debug!("SVG optimized ({} bytes)", result.len());
     result
 }
-
-/// Format a number with a suffix for large values
-pub fn format_number(n: u32) -> String {
-    if n >= 1_000_000 {
-        format!("{:.1}M", n as f32 / 1_000_000.0)
-    } else if n >= 1000 {
-        format!("{:.1}k", n as f32 / 1000.0)
-    } else {
-        n.to_string()
-    }
-}
