@@ -13,8 +13,3 @@ pub fn format_number(n: u32) -> String {
 pub fn comma_str_to_vec_slice<'a>(s: &'a str) -> Vec<&'a str> {
     s.split(',').map(|s| s.trim()).collect::<Vec<&'a str>>()
 }
-
-/// Splits an optional comma-separated string into a Vec of string slices, trimming whitespace from each element.
-pub fn opt_comma_str_to_vec_slice(s: &Option<String>) -> Option<Vec<&str>> {
-    s.as_ref().map(|s_ref| comma_str_to_vec_slice(s_ref))
-}

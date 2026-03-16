@@ -6,7 +6,7 @@ mod svg;
 mod theme;
 mod tiles;
 
-use crate::{cli::Args, helpers::opt_comma_str_to_vec_slice};
+use crate::cli::Args;
 use anyhow::{Context, Result};
 use log::{debug, info};
 use std::path::Path;
@@ -58,7 +58,7 @@ async fn main() -> Result<()> {
         None
     };
 
-    let excluded_languages = opt_comma_str_to_vec_slice(&args.languages_exclude);
+    let excluded_languages = comma_str_to_vec_slice(&args.languages_exclude);
     let languages = if tile_selection.contains(&"languages") {
         Some(Languages::from_user(
             &user,

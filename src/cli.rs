@@ -28,8 +28,8 @@ pub struct Args {
     pub languages_limit: u8,
 
     /// Languages to ignore (comma-separated and case-insensitive)
-    #[arg(long)]
-    pub languages_exclude: Option<String>,
+    #[arg(long, default_value = "")]
+    pub languages_exclude: String,
 
     /// Contributions to display
     #[arg(long, default_value = "10")]
