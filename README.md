@@ -67,6 +67,7 @@ jobs:
 | `private` | Include private repositories | No | `false` |
 | `forks` | Include forked repositories | No | `false` |
 | `languages-limit` | Number of languages to display | No | `5` |
+| `languages-exclude` | Languages to ignore (comma-separated, case-insensitive) | No | `null` |
 | `contributions-limit` | Number of contributions to display | No | `10` |
 | `contributions-min-stars` | Minimum stars for contributions | No | `0` |
 | `opaque` | Render with opaque background | No | `false` |
