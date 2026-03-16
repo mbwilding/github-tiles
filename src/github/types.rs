@@ -77,19 +77,19 @@ pub struct Language {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct PullRequestConnection {
-    pub total_count: u32,
+    pub total_count: Option<u32>,
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct IssueConnection {
-    pub total_count: u32,
+    pub total_count: Option<u32>,
 }
 
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct MergedPullRequestConnection {
-    pub total_count: u32,
+    pub total_count: Option<u32>,
     pub nodes: Vec<MergedPullRequest>,
     pub page_info: PageInfo,
 }

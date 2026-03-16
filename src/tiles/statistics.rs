@@ -54,9 +54,9 @@ impl Statistics {
             total_stars,
             total_forks,
             total_commits,
-            total_prs: user.pull_requests.total_count,
-            total_issues: user.issues.total_count,
-            merged_prs: user.merged_pull_requests.total_count,
+            total_prs: user.pull_requests.total_count.unwrap_or_default(),
+            total_issues: user.issues.total_count.unwrap_or_default(),
+            merged_prs: user.merged_pull_requests.total_count.unwrap_or_default(),
         };
 
         debug!(

@@ -80,7 +80,7 @@ pub async fn fetch_user_data(
             token,
             initial_user.merged_pull_requests.nodes,
             initial_user.merged_pull_requests.page_info,
-            initial_user.merged_pull_requests.total_count,
+            initial_user.merged_pull_requests.total_count.unwrap_or_default(),
         )
     )?;
 
@@ -99,7 +99,7 @@ pub async fn fetch_user_data(
             pull_requests: initial_user.pull_requests,
             issues: initial_user.issues,
             merged_pull_requests: MergedPullRequestConnection {
-                total_count: merged_pr_total_count,
+                total_count: Some(merged_pr_total_count),
                 nodes: all_merged_prs,
                 page_info: PageInfo {
                     has_next_page: false,
